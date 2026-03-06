@@ -9,113 +9,136 @@
 <ion-content class="campo-detail-content">
   @if (campo) {
     <div class="campo-detail-container">
-      <!-- Informações do Talhão -->
-      <ion-card class="info-card">
-        <ion-card-content>
-          <div class="info-header">
-            <div>
-              <h2>{{ campo.nome }}</h2>
-              @if (campo.localizacao) {
-                <p>
-                  <ion-icon name="location"></ion-icon>
-                  {{ campo.localizacao }}
-                </p>
-              }
-            </div>
-            <div class="stats-badge">
-              <span class="numero">{{ campo.armadilhas.length }}</span>
-              <span class="label">armadilhas</span>
-            </div>
-          </div>
-          <!-- Botão de Vistoria Rápida -->
-          @if (campo.armadilhas.length > 0) {
-            <div class="vistoria-section">
-              <ion-button
-                expand="block"
-                class="vistoria-button"
-                (click)="iniciarVistoria()">
-                <ion-icon name="camera" slot="start"></ion-icon>
-                Iniciar Vistoria Rápida
-                <ion-icon name="arrow-forward-circle" slot="end"></ion-icon>
-              </ion-button>
-            </div>
-          }
-        </ion-card-content>
-      </ion-card>
 
-      <!-- Mensagem quando não há armadilhas -->
+      <!-- Banner de status do talhão -->
+      <div class="talhao-banner">
+        <div class="banner-left">
+          <div class="banner-icon">
+            <ion-icon name="cafe"></ion-icon>
+          </div>
+          <div class="banner-info">
+            <h2>{{ campo.nome }}</h2>
+            @if (campo.localizacao) {
+              <p class="localizacao">
+                <ion-icon name="location-outline"></ion-icon>
+                {{ campo.localizacao }}
+              </p>
+            }
+          </div>
+        </div>
+        <div class="banner-stats">
+          <div class="stat-pill">
+            <span class="stat-num">{{ campo.armadilhas.length }}</span>
+            <span class="stat-lbl">pontos</span>
+          </div>
+          <div class="stat-pill" [class.fotografado]="talhaoJaFotografadoHoje()">
+            <ion-icon [name]="talhaoJaFotografadoHoje() ? 'checkmark-circle' : 'ellipse-outline'"></ion-icon>
+            <span class="stat-lbl">{{ talhaoJaFotografadoHoje() ? 'Foto hoje' : 'Sem foto hoje' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aviso de limite diário atingido -->
+      @if (talhaoJaFotografadoHoje()) {
+        <div class="aviso-diario">
+          <ion-icon name="information-circle"></ion-icon>
+          <div>
+            <strong>Foto do dia registrada</strong>
+            <p>Este talhão já foi fotografado hoje. O próximo registro poderá ser feito amanhã.</p>
+          </div>
+        </div>
+      }
+
+      <!-- Estado vazio -->
       @if (campo.armadilhas.length === 0) {
         <div class="empty-state">
           <div class="empty-icon-container">
-            <ion-icon name="flag-outline"></ion-icon>
+            <ion-icon name="camera-outline"></ion-icon>
           </div>
-          <h3>Nenhuma armadilha cadastrada</h3>
-          <p>Adicione armadilhas para começar o monitoramento</p>
-          <ion-button expand="block" (click)="novaArmadilha()" class="add-armadilha-button">
+          <h3>Nenhum ponto de foto cadastrado</h3>
+          <p>Adicione pontos para iniciar o monitoramento deste talhão</p>
+          <ion-button expand="block" (click)="novoPontoDeFoto()" class="add-ponto-button">
             <ion-icon name="add-circle" slot="start"></ion-icon>
-            Adicionar Armadilha
+            Adicionar Ponto de Foto
           </ion-button>
         </div>
       }
 
-      <!-- Lista de Armadilhas -->
+      <!-- Lista de pontos de foto -->
       @if (campo.armadilhas.length > 0) {
-        <div class="armadilhas-grid">
-          @for (armadilha of campo.armadilhas; track armadilha) {
-            <ion-card
-              class="armadilha-card"
-              [class.com-foto]="armadilha.foto">
-              <!-- Área da Foto -->
-              <div class="foto-area" (click)="armadilha.foto ? visualizarFoto(armadilha) : tirarFoto(armadilha)">
-                @if (armadilha.foto) {
-                  <img [src]="armadilha.foto" [alt]="armadilha.nome" />
+        <div class="section-header">
+          <h3 class="section-title">
+            <ion-icon name="flag-outline"></ion-icon>
+            Pontos de Foto
+          </h3>
+          <button class="add-btn" (click)="novoPontoDeFoto()">
+            <ion-icon name="add-circle"></ion-icon>
+          </button>
+        </div>
+
+        <div class="pontos-list">
+          @for (ponto of campo.armadilhas; track ponto; let i = $index) {
+            <div class="ponto-item" [class.fotografado-hoje]="pontoFotografadoHoje()?.id === ponto.id">
+
+              <!-- Número do ponto -->
+              <div class="ponto-numero">{{ i + 1 }}</div>
+
+              <!-- Thumbnail da foto ou placeholder -->
+              <div class="ponto-thumb"
+                   (click)="ponto.foto ? visualizarFoto(ponto) : tirarFoto(ponto)">
+                @if (ponto.foto) {
+                  <img [src]="ponto.foto" [alt]="ponto.nome" />
+                  @if (pontoFotografadoHoje()?.id === ponto.id) {
+                    <div class="thumb-badge-hoje">
+                      <ion-icon name="checkmark-circle"></ion-icon>
+                    </div>
+                  }
                 }
-                @if (!armadilha.foto) {
-                  <div class="sem-foto">
-                    <ion-icon name="camera"></ion-icon>
-                    <span>Tirar Foto</span>
+                @if (!ponto.foto) {
+                  <div class="thumb-placeholder">
+                    <ion-icon name="camera-outline"></ion-icon>
                   </div>
                 }
               </div>
-              <!-- Informações -->
-              <ion-card-content>
-                <div class="armadilha-header">
-                  <h3>{{ armadilha.nome }}</h3>
-                  <div class="actions">
-                    <ion-button fill="clear" size="small" (click)="editarArmadilha(armadilha)">
-                      <ion-icon name="create-outline"></ion-icon>
-                    </ion-button>
-                    <ion-button fill="clear" size="small" color="danger" (click)="deletarArmadilha(armadilha)">
-                      <ion-icon name="trash-outline"></ion-icon>
-                    </ion-button>
-                  </div>
-                </div>
-                @if (armadilha.observacoes) {
-                  <p class="observacoes">{{ armadilha.observacoes }}</p>
+
+              <!-- Dados do ponto -->
+              <div class="ponto-dados">
+                <span class="ponto-nome">{{ ponto.nome }}</span>
+                @if (ponto.observacoes) {
+                  <span class="ponto-obs">{{ ponto.observacoes }}</span>
                 }
-                @if (armadilha.dataFoto) {
-                  <div class="data-foto">
+                @if (ponto.dataFoto) {
+                  <span class="ponto-data">
                     <ion-icon name="time-outline"></ion-icon>
-                    <span>{{ armadilha.dataFoto | date:'dd/MM/yyyy HH:mm' }}</span>
-                  </div>
+                    {{ ponto.dataFoto | date:'dd/MM HH:mm' }}
+                  </span>
                 }
-                <ion-button
-                  expand="block"
-                  [color]="armadilha.foto ? 'success' : 'primary'"
-                  (click)="tirarFoto(armadilha)">
-                  <ion-icon [name]="armadilha.foto ? 'camera' : 'camera-outline'" slot="start"></ion-icon>
-                  {{ armadilha.foto ? 'Atualizar Foto' : 'Tirar Foto' }}
-                </ion-button>
-              </ion-card-content>
-            </ion-card>
+                @if (!ponto.dataFoto) {
+                  <span class="ponto-data sem-data">Sem foto registrada</span>
+                }
+              </div>
+
+              <!-- Ações -->
+              <div class="ponto-acoes">
+                <button class="acao-btn foto"
+                  [disabled]="talhaoJaFotografadoHoje() && pontoFotografadoHoje()?.id !== ponto.id"
+                  (click)="tirarFoto(ponto)"
+                  [title]="talhaoJaFotografadoHoje() ? 'Limite diário atingido' : 'Tirar foto'">
+                  <ion-icon [name]="ponto.foto ? 'camera' : 'camera-outline'"></ion-icon>
+                </button>
+                <button class="acao-btn editar" (click)="editarPontoDeFoto(ponto)">
+                  <ion-icon name="create-outline"></ion-icon>
+                </button>
+                <button class="acao-btn excluir" (click)="deletarPontoDeFoto(ponto)">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </button>
+              </div>
+
+            </div>
           }
         </div>
       }
 
-      <!-- Decoração de fundo -->
-      <div class="bg-decoration top-left"></div>
-      <div class="bg-decoration bottom-right"></div>
-      <div class="bg-decoration middle"></div>
     </div>
   }
 </ion-content>

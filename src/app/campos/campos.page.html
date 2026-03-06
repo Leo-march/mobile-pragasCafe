@@ -9,9 +9,9 @@
 <ion-content class="campos-content" [scrollY]="true">
   <div class="campos-container">
 
-    <!-- Mensagem quando não há campos -->
+    <!-- Estado vazio -->
     @if (campos.length === 0) {
-      <div class="empty-state animate-fade-in">
+      <div class="empty-state">
         <div class="empty-icon-wrapper">
           <ion-icon name="map-outline"></ion-icon>
         </div>
@@ -20,83 +20,88 @@
       </div>
     }
 
-    <!-- Lista de campos -->
+    <!-- Lista de talhões -->
     @if (campos.length > 0) {
       <div class="campos-list">
         @for (campo of campos; track campo; let i = $index) {
-          <ion-card
-            class="campo-card"
-            [style.animation-delay]="(i * 0.1) + 's'"
-            (click)="abrirCampo(campo)">
-            <div class="campo-badge">
+
+          <div class="campo-card" (click)="abrirCampo(campo)">
+
+            <!-- Faixa lateral colorida baseada no progresso -->
+            <div class="card-accent" [class.complete]="calcularProgresso(campo) === 1"></div>
+
+            <!-- Ícone do talhão -->
+            <div class="card-icon">
               <ion-icon name="cafe"></ion-icon>
             </div>
-            <ion-card-content>
-              <div class="campo-header">
-                <div class="campo-info">
+
+            <!-- Conteúdo principal -->
+            <div class="card-body">
+              <div class="card-top">
+                <div class="card-titles">
                   <h2>{{ campo.nome }}</h2>
                   @if (campo.localizacao) {
-                    <p class="location">
-                      <ion-icon name="location"></ion-icon>
+                    <p class="card-location">
+                      <ion-icon name="location-outline"></ion-icon>
                       {{ campo.localizacao }}
                     </p>
                   }
                 </div>
-                <div class="campo-actions" (click)="$event.stopPropagation()">
-                  <ion-button fill="clear" (click)="editarCampo(campo)" class="action-btn">
-                    <ion-icon name="create"></ion-icon>
-                  </ion-button>
-                  <ion-button fill="clear" color="danger" (click)="deletarCampo(campo)" class="action-btn">
-                    <ion-icon name="trash"></ion-icon>
-                  </ion-button>
+
+                <!-- Ações (isoladas do clique do card) -->
+                <div class="card-actions" (click)="$event.stopPropagation()">
+                  <button class="act-btn edit" (click)="editarCampo(campo)" title="Editar">
+                    <ion-icon name="create-outline"></ion-icon>
+                  </button>
+                  <button class="act-btn del" (click)="deletarCampo(campo)" title="Excluir">
+                    <ion-icon name="trash-outline"></ion-icon>
+                  </button>
                 </div>
               </div>
-              <div class="campo-stats">
-                <div class="stat-item">
-                  <div class="stat-icon-box">
-                    <ion-icon name="flag"></ion-icon>
-                  </div>
-                  <div class="stat-text">
-                    <span class="number">{{ campo.armadilhas.length }}</span>
-                    <span class="label">armadilhas</span>
-                  </div>
+
+              <!-- Chips de estatísticas -->
+              <div class="card-chips">
+                <div class="chip">
+                  <ion-icon name="camera-outline"></ion-icon>
+                  <span>{{ campo.armadilhas.length }} pontos</span>
                 </div>
-                <div class="stat-item">
-                  <div class="stat-icon-box">
-                    <ion-icon name="camera"></ion-icon>
-                  </div>
-                  <div class="stat-text">
-                    <span class="number">{{ contarFotos(campo) }}</span>
-                    <span class="label">fotos</span>
-                  </div>
+                <div class="chip">
+                  <ion-icon name="images-outline"></ion-icon>
+                  <span>{{ contarFotos(campo) }} fotos</span>
                 </div>
+                @if (calcularProgresso(campo) === 1) {
+                  <div class="chip chip-ok">
+                    <ion-icon name="checkmark-circle"></ion-icon>
+                    <span>Completo</span>
+                  </div>
+                }
               </div>
-              <div class="progress-section">
-                <div class="progress-header">
-                  <span class="progress-label">Progresso</span>
-                  <span class="progress-value">{{ (calcularProgresso(campo) * 100).toFixed(0) }}%</span>
-                </div>
-                <div class="progress-bar-wrapper">
+
+              <!-- Barra de progresso -->
+              <div class="card-progress">
+                <div class="progress-track">
                   <div
-                    class="progress-bar-fill"
+                    class="progress-fill"
                     [style.width]="(calcularProgresso(campo) * 100) + '%'"
                     [class.complete]="calcularProgresso(campo) === 1">
                   </div>
                 </div>
+                <span class="progress-pct">{{ (calcularProgresso(campo) * 100).toFixed(0) }}%</span>
               </div>
-              <div class="view-button">
-                <ion-icon name="arrow-forward"></ion-icon>
-                <span>Ver detalhes</span>
-              </div>
-            </ion-card-content>
-          </ion-card>
+            </div>
+
+            <!-- Seta de acesso -->
+            <div class="card-arrow">
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </div>
+
+          </div>
+
         }
       </div>
     }
 
-    <!-- Decoração de fundo -->
     <div class="bg-decoration top-left"></div>
     <div class="bg-decoration bottom-right"></div>
-    <div class="bg-decoration middle"></div>
   </div>
 </ion-content>

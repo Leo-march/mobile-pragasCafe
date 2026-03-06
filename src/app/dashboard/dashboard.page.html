@@ -6,6 +6,7 @@
   </ion-header>
 
   <div class="dashboard-container">
+
     <!-- Bem-vindo -->
     <ion-card class="welcome-card animate-fade-in">
       <ion-card-content>
@@ -17,25 +18,10 @@
       </ion-card-content>
     </ion-card>
 
-    <!-- Ações Rápidas -->
-    <ion-card class="activity-card animate-slide-up-delay">
-      <ion-card-header>
-        <ion-card-title>
-          <ion-icon name="flash"></ion-icon>
-          Ações Rápidas
-        </ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-button expand="block" color="tertiary" (click)="iniciarVistoriaRapida()" class="action-button">
-          <ion-icon name="play-circle" slot="start"></ion-icon>
-          Iniciar Vistoria
-        </ion-button>
-      </ion-card-content>
-    </ion-card>
-
     <!-- Cards de Estatísticas -->
     <div class="stats-grid animate-slide-up">
-      <!-- Card Fotos Faltando -->
+
+      <!-- Fotos Faltando -->
       <ion-card class="stat-card" (click)="mostrarDetalhesFotosFaltando()">
         <ion-card-content>
           <div class="stat-icon-wrapper">
@@ -50,7 +36,7 @@
         </ion-card-content>
       </ion-card>
 
-      <!-- Card Taxa de Conclusão -->
+      <!-- Taxa de Conclusão -->
       <ion-card class="stat-card" (click)="navegarParaCampos()">
         <ion-card-content>
           <div class="stat-icon-wrapper">
@@ -60,26 +46,42 @@
           <p>Taxa de Conclusão</p>
           <span class="trend positive">
             <ion-icon name="checkbox-outline"></ion-icon>
-            {{ totalArmadilhas }} armadilhas
           </span>
         </ion-card-content>
       </ion-card>
 
-      <!-- Card Talhões Cadastrados -->
+      <!-- Talhões Cadastrados -->
       <ion-card class="stat-card" (click)="navegarParaCampos()">
         <ion-card-content>
           <div class="stat-icon-wrapper">
             <ion-icon name="map-outline" class="stat-icon"></ion-icon>
           </div>
           <h3>{{ totalCampos }}</h3>
-          <p>Talhões Cadastrados</p>
+          <p>Talhões</p>
           <span class="trend positive">
             <ion-icon name="checkmark-circle"></ion-icon>
             Ativos
           </span>
         </ion-card-content>
       </ion-card>
+
     </div>
+
+    <!-- Acesso rápido aos talhões -->
+    <ion-card class="acao-card animate-slide-up-delay" (click)="navegarParaCampos()">
+      <ion-card-content>
+        <div class="acao-inner">
+          <div class="acao-icon">
+            <ion-icon name="map-outline"></ion-icon>
+          </div>
+          <div class="acao-texto">
+            <strong>Ver Talhões</strong>
+            <span>Gerencie seus talhões e pontos de foto</span>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="acao-seta"></ion-icon>
+        </div>
+      </ion-card-content>
+    </ion-card>
 
     <!-- Dica do Dia -->
     <ion-card class="info-card animate-slide-up-delay2">
@@ -88,11 +90,10 @@
           <ion-icon name="bulb"></ion-icon>
           <h3>Dica do Dia</h3>
         </div>
-        <p>Monitore regularmente as armadilhas para detectar precocemente a broca-do-café (<em>Hypothenemus hampei</em>) e outras pragas. O registro fotográfico atualizado garante um controle mais eficiente!</p>
+        <p>Monitore regularmente os pontos de foto para detectar precocemente a broca-do-café (<em>Hypothenemus hampei</em>) e outras pragas. O registro fotográfico diário garante um controle mais eficiente!</p>
       </ion-card-content>
     </ion-card>
 
-    <!-- Decoração de fundo -->
     <div class="bg-decoration top-left"></div>
     <div class="bg-decoration bottom-right"></div>
     <div class="bg-decoration middle"></div>
