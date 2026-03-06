@@ -1,7 +1,7 @@
 .login-content {
-  --background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  --background: linear-gradient(135deg, #efebe9 0%, #d7ccc8 100%);
   position: relative;
-  overflow: hidden; // IMPORTANTE: impede scroll horizontal
+  overflow: hidden;
 }
 
 .login-container {
@@ -13,12 +13,12 @@
   padding: 20px;
   position: relative;
   z-index: 1;
-  overflow-x: hidden; // ADICIONADO: impede scroll horizontal
+  overflow-x: hidden;
   overflow-y: auto;
   max-height: 100vh;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -26,43 +26,22 @@
 
 // Animações
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.8s ease-out;
-}
-
-.animate-slide-up {
-  animation: slideUp 0.8s ease-out 0.2s both;
-}
+.animate-fade-in { animation: fadeIn 0.8s ease-out; }
+.animate-slide-up { animation: slideUp 0.8s ease-out 0.2s both; }
 
 // Logo Area
 .logo-area {
@@ -72,13 +51,13 @@
   .logo-circle {
     width: 100px;
     height: 100px;
-    background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+    background: linear-gradient(135deg, #4e342e 0%, #6d4c41 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 20px;
-    box-shadow: 0 8px 24px rgba(46, 125, 50, 0.3);
+    box-shadow: 0 8px 24px rgba(78, 52, 46, 0.3);
     animation: float 3s ease-in-out infinite;
 
     .logo-icon {
@@ -90,14 +69,14 @@
   .app-title {
     font-size: 32px;
     font-weight: 700;
-    color: #2e7d32;
+    color: #4e342e;
     margin: 0 0 8px 0;
     letter-spacing: -0.5px;
   }
 
   .app-subtitle {
     font-size: 14px;
-    color: #666;
+    color: #795548;
     margin: 0;
     font-weight: 500;
   }
@@ -115,14 +94,14 @@
   .form-title {
     font-size: 24px;
     font-weight: 700;
-    color: #2e7d32;
+    color: #4e342e;
     margin: 0 0 8px 0;
     text-align: center;
   }
 
   .form-subtitle {
     font-size: 14px;
-    color: #666;
+    color: #795548;
     margin: 0 0 32px 0;
     text-align: center;
   }
@@ -139,7 +118,7 @@
     top: 50%;
     transform: translateY(-50%);
     font-size: 20px;
-    color: #43a047;
+    color: #6d4c41;
     z-index: 2;
   }
 
@@ -155,14 +134,12 @@
 
     &:focus {
       outline: none;
-      border-color: #43a047;
+      border-color: #6d4c41;
       background: white;
-      box-shadow: 0 0 0 4px rgba(67, 160, 71, 0.1);
+      box-shadow: 0 0 0 4px rgba(109, 76, 65, 0.1);
     }
 
-    &::placeholder {
-      color: #999;
-    }
+    &::placeholder { color: #999; }
   }
 
   .toggle-password {
@@ -176,9 +153,7 @@
     transition: color 0.3s ease;
     z-index: 2;
 
-    &:hover {
-      color: #43a047;
-    }
+    &:hover { color: #6d4c41; }
   }
 }
 
@@ -188,23 +163,20 @@
   margin-bottom: 24px;
 
   a {
-    color: #43a047;
+    color: #6d4c41;
     font-size: 14px;
     font-weight: 500;
     text-decoration: none;
     cursor: pointer;
     transition: color 0.3s ease;
 
-    &:hover {
-      color: #2e7d32;
-      text-decoration: underline;
-    }
+    &:hover { color: #4e342e; text-decoration: underline; }
   }
 }
 
 // Buttons
 .login-button {
-  --background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+  --background: linear-gradient(135deg, #4e342e 0%, #6d4c41 100%);
   --border-radius: 12px;
   height: 52px;
   font-size: 16px;
@@ -212,20 +184,20 @@
   margin-bottom: 24px;
   text-transform: none;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+  box-shadow: 0 4px 12px rgba(78, 52, 46, 0.3);
   transition: all 0.3s ease;
 
   &:hover {
-    --background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+    --background: linear-gradient(135deg, #3e2723 0%, #4e342e 100%);
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(46, 125, 50, 0.4);
+    box-shadow: 0 6px 16px rgba(78, 52, 46, 0.4);
   }
 }
 
 .signup-button {
   --border-width: 2px;
-  --border-color: #43a047;
-  --color: #43a047;
+  --border-color: #6d4c41;
+  --color: #6d4c41;
   --border-radius: 12px;
   height: 52px;
   font-size: 16px;
@@ -234,7 +206,7 @@
   transition: all 0.3s ease;
 
   &:hover {
-    --background: rgba(67, 160, 71, 0.05);
+    --background: rgba(109, 76, 65, 0.05);
     transform: translateY(-2px);
   }
 }
@@ -247,34 +219,30 @@
   color: #999;
   font-size: 14px;
 
-  &::before,
-  &::after {
+  &::before, &::after {
     content: '';
     flex: 1;
     height: 1px;
     background: #e0e0e0;
   }
 
-  span {
-    padding: 0 16px;
-    font-weight: 500;
-  }
+  span { padding: 0 16px; font-weight: 500; }
 }
 
-// Background Decorations - CORRIGIDO
+// Background Decorations
 .bg-decoration {
-  position: fixed; // MUDADO de absolute para fixed
+  position: fixed;
   border-radius: 50%;
   opacity: 0.1;
   z-index: 0;
-  pointer-events: none; // ADICIONADO: impede interação
+  pointer-events: none;
 
   &.top-left {
     width: 300px;
     height: 300px;
     top: -150px;
     left: -150px;
-    background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+    background: linear-gradient(135deg, #4e342e 0%, #6d4c41 100%);
   }
 
   &.bottom-right {
@@ -282,34 +250,20 @@
     height: 300px;
     bottom: -150px;
     right: -150px;
-    background: linear-gradient(135deg, #43a047 0%, #66bb6a 100%);
+    background: linear-gradient(135deg, #6d4c41 0%, #8d6e63 100%);
   }
 }
 
 // Responsive
 @media (max-width: 480px) {
-  .login-container {
-    padding: 16px;
-  }
+  .login-container { padding: 16px; }
 
   .logo-area {
     margin-bottom: 32px;
 
-    .logo-circle {
-      width: 80px;
-      height: 80px;
-
-      .logo-icon {
-        font-size: 40px;
-      }
-    }
-
-    .app-title {
-      font-size: 28px;
-    }
+    .logo-circle { width: 80px; height: 80px; .logo-icon { font-size: 40px; } }
+    .app-title { font-size: 28px; }
   }
 
-  .form-container {
-    padding: 24px 20px;
-  }
+  .form-container { padding: 24px 20px; }
 }

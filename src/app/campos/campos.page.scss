@@ -1,14 +1,14 @@
 .custom-header {
-  background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+  background: linear-gradient(135deg, #4e342e 0%, #6d4c41 100%);
   padding: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+  box-shadow: 0 4px 12px rgba(78, 52, 46, 0.3);
   position: sticky;
   top: 0;
   z-index: 100;
-  
+
   .header-back-button,
   .header-add-button {
     background: rgba(255, 255, 255, 0.2);
@@ -25,9 +25,7 @@
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
 
-    ion-icon {
-      font-size: 22px;
-    }
+    ion-icon { font-size: 22px; }
 
     &:hover {
       background: rgba(255, 255, 255, 0.3);
@@ -35,26 +33,17 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
-    &:active {
-      transform: translateY(0) scale(0.95);
-    }
+    &:active { transform: translateY(0) scale(0.95); }
   }
 
-  .header-back-button {
-    span {
-      @media (max-width: 480px) {
-        display: none;
-      }
-    }
+  .header-back-button span {
+    @media (max-width: 480px) { display: none; }
   }
 
   .header-add-button {
     min-width: 44px;
     justify-content: center;
-    
-    span {
-      display: none;
-    }
+    span { display: none; }
   }
 
   .header-title {
@@ -66,9 +55,7 @@
     text-align: center;
     letter-spacing: -0.3px;
 
-    @media (max-width: 480px) {
-      font-size: 18px;
-    }
+    @media (max-width: 480px) { font-size: 18px; }
   }
 }
 
@@ -78,9 +65,9 @@
 }
 
 .campos-content {
-  --background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  --background: linear-gradient(135deg, #efebe9 0%, #d7ccc8 100%);
   position: relative;
-  overflow: hidden; // IMPORTANTE: impede scroll horizontal
+  overflow: hidden;
 }
 
 .campos-container {
@@ -89,53 +76,26 @@
   margin: 0 auto;
   position: relative;
   z-index: 1;
-  overflow-x: hidden; // ADICIONADO: impede scroll horizontal
+  overflow-x: hidden;
 }
 
 // Animações
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(5deg);
-  }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(5deg); }
 }
 
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out;
-}
+.animate-fade-in { animation: fadeIn 0.6s ease-out; }
 
 // Empty State
 .empty-state {
@@ -147,9 +107,8 @@
   text-align: center;
 
   .empty-icon-wrapper {
-    width: 140px;
-    height: 140px;
-    background: linear-gradient(135deg, rgba(67, 160, 71, 0.1) 0%, rgba(67, 160, 71, 0.2) 100%);
+    width: 140px; height: 140px;
+    background: linear-gradient(135deg, rgba(109, 76, 65, 0.1) 0%, rgba(109, 76, 65, 0.2) 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -157,38 +116,11 @@
     margin-bottom: 24px;
     animation: float 3s ease-in-out infinite;
 
-    ion-icon {
-      font-size: 70px;
-      color: #43a047;
-    }
+    ion-icon { font-size: 70px; color: #6d4c41; }
   }
 
-  h2 {
-    color: #2e7d32;
-    margin: 0 0 12px 0;
-    font-size: 26px;
-    font-weight: 700;
-  }
-
-  p {
-    color: #666;
-    margin: 0 0 32px 0;
-    font-size: 16px;
-  }
-
-  .create-button {
-    --background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
-    --border-radius: 12px;
-    height: 52px;
-    font-weight: 600;
-    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
-    transition: all 0.3s ease;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(46, 125, 50, 0.4);
-    }
-  }
+  h2 { color: #4e342e; margin: 0 0 12px 0; font-size: 26px; font-weight: 700; }
+  p { color: #795548; margin: 0 0 32px 0; font-size: 16px; }
 }
 
 // Lista de Campos
@@ -212,11 +144,9 @@
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     height: 6px;
-    background: linear-gradient(90deg, #2e7d32 0%, #43a047 50%, #66bb6a 100%);
+    background: linear-gradient(90deg, #4e342e 0%, #6d4c41 50%, #8d6e63 100%);
     border-radius: 20px 20px 0 0;
     transform: scaleX(0);
     transform-origin: left;
@@ -225,51 +155,36 @@
 
   &:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 32px rgba(67, 160, 71, 0.25);
+    box-shadow: 0 12px 32px rgba(78, 52, 46, 0.25);
 
-    &::before {
-      transform: scaleX(1);
-    }
-
-    .campo-badge {
-      transform: scale(1.1) rotate(10deg);
-    }
+    &::before { transform: scaleX(1); }
+    .campo-badge { transform: scale(1.1) rotate(10deg); }
 
     .view-button {
-      background: #43a047;
+      background: #6d4c41;
       color: white;
       padding-right: 24px;
-
-      ion-icon {
-        transform: translateX(4px);
-      }
+      ion-icon { transform: translateX(4px); }
     }
   }
 
   .campo-badge {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 52px;
-    height: 52px;
-    background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+    top: 20px; right: 20px;
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, #4e342e 0%, #6d4c41 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+    box-shadow: 0 4px 12px rgba(78, 52, 46, 0.3);
     transition: all 0.3s ease;
     z-index: 2;
 
-    ion-icon {
-      font-size: 26px;
-      color: white;
-    }
+    ion-icon { font-size: 26px; color: white; }
   }
 
-  ion-card-content {
-    padding: 24px 20px 20px;
-  }
+  ion-card-content { padding: 24px 20px 20px; }
 
   .campo-header {
     display: flex;
@@ -280,26 +195,16 @@
 
     .campo-info {
       flex: 1;
-
-      h2 {
-        margin: 0 0 8px 0;
-        color: #2e7d32;
-        font-size: 22px;
-        font-weight: 700;
-      }
+      h2 { margin: 0 0 8px 0; color: #4e342e; font-size: 22px; font-weight: 700; }
 
       .location {
         margin: 0;
-        color: #666;
+        color: #795548;
         font-size: 14px;
         display: flex;
         align-items: center;
         gap: 6px;
-
-        ion-icon {
-          font-size: 16px;
-          color: #43a047;
-        }
+        ion-icon { font-size: 16px; color: #6d4c41; }
       }
     }
 
@@ -311,18 +216,11 @@
         --padding-start: 8px;
         --padding-end: 8px;
         margin: 0;
-        width: 36px;
-        height: 36px;
+        width: 36px; height: 36px;
         border-radius: 50%;
         transition: all 0.3s ease;
-
-        ion-icon {
-          font-size: 20px;
-        }
-
-        &:hover {
-          transform: scale(1.1);
-        }
+        ion-icon { font-size: 20px; }
+        &:hover { transform: scale(1.1); }
       }
     }
   }
@@ -339,37 +237,21 @@
       flex: 1;
 
       .stat-icon-box {
-        width: 44px;
-        height: 44px;
-        background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        width: 44px; height: 44px;
+        background: linear-gradient(135deg, #efebe9 0%, #d7ccc8 100%);
         border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: all 0.3s ease;
-
-        ion-icon {
-          font-size: 22px;
-          color: #43a047;
-        }
+        ion-icon { font-size: 22px; color: #6d4c41; }
       }
 
       .stat-text {
         display: flex;
         flex-direction: column;
-
-        .number {
-          font-size: 20px;
-          font-weight: 700;
-          color: #2e7d32;
-          line-height: 1;
-        }
-
-        .label {
-          font-size: 12px;
-          color: #666;
-          margin-top: 2px;
-        }
+        .number { font-size: 20px; font-weight: 700; color: #4e342e; line-height: 1; }
+        .label { font-size: 12px; color: #795548; margin-top: 2px; }
       }
     }
   }
@@ -382,20 +264,8 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 8px;
-
-      .progress-label {
-        font-size: 13px;
-        color: #666;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
-
-      .progress-value {
-        font-size: 15px;
-        font-weight: 700;
-        color: #2e7d32;
-      }
+      .progress-label { font-size: 13px; color: #795548; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+      .progress-value { font-size: 15px; font-weight: 700; color: #4e342e; }
     }
 
     .progress-bar-wrapper {
@@ -407,7 +277,7 @@
 
       .progress-bar-fill {
         height: 100%;
-        background: linear-gradient(90deg, #fbc02d 0%, #43a047 100%);
+        background: linear-gradient(90deg, #ff8f00 0%, #6d4c41 100%);
         border-radius: 10px;
         transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
@@ -415,20 +285,12 @@
         &::after {
           content: '';
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(90deg, 
-            transparent 0%, 
-            rgba(255, 255, 255, 0.3) 50%, 
-            transparent 100%);
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
           animation: shimmer 2s infinite;
         }
 
-        &.complete {
-          background: linear-gradient(90deg, #43a047 0%, #66bb6a 100%);
-        }
+        &.complete { background: linear-gradient(90deg, #6d4c41 0%, #8d6e63 100%); }
       }
     }
   }
@@ -443,58 +305,44 @@
     border-radius: 12px;
     font-weight: 600;
     font-size: 14px;
-    color: #43a047;
+    color: #6d4c41;
     transition: all 0.3s ease;
-
-    ion-icon {
-      font-size: 18px;
-      transition: transform 0.3s ease;
-    }
+    ion-icon { font-size: 18px; transition: transform 0.3s ease; }
   }
 }
 
 @keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
-// Background Decorations - CORRIGIDO
+// Background Decorations
 .bg-decoration {
-  position: fixed; // MUDADO de absolute para fixed
+  position: fixed;
   border-radius: 50%;
   opacity: 0.08;
   z-index: 0;
-  pointer-events: none; // ADICIONADO: impede interação
+  pointer-events: none;
   animation: float 8s ease-in-out infinite;
 
   &.top-left {
-    width: 300px;
-    height: 300px;
-    top: -150px;
-    left: -150px;
-    background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+    width: 300px; height: 300px;
+    top: -150px; left: -150px;
+    background: linear-gradient(135deg, #4e342e 0%, #6d4c41 100%);
     animation-delay: 0s;
   }
 
   &.bottom-right {
-    width: 250px;
-    height: 250px;
-    bottom: -125px;
-    right: -125px;
-    background: linear-gradient(135deg, #43a047 0%, #66bb6a 100%);
+    width: 250px; height: 250px;
+    bottom: -125px; right: -125px;
+    background: linear-gradient(135deg, #6d4c41 0%, #8d6e63 100%);
     animation-delay: 3s;
   }
 
   &.middle {
-    width: 200px;
-    height: 200px;
-    top: 40%;
-    left: -100px;
-    background: linear-gradient(135deg, #66bb6a 0%, #81c784 100%);
+    width: 200px; height: 200px;
+    top: 40%; left: -100px;
+    background: linear-gradient(135deg, #8d6e63 0%, #a1887f 100%);
     animation-delay: 6s;
   }
 }
@@ -506,15 +354,8 @@
       flex-direction: column;
       gap: 12px;
       padding-right: 0;
-
-      .campo-actions {
-        align-self: flex-end;
-      }
+      .campo-actions { align-self: flex-end; }
     }
-
-    .campo-stats {
-      flex-direction: column;
-      gap: 12px;
-    }
+    .campo-stats { flex-direction: column; gap: 12px; }
   }
 }

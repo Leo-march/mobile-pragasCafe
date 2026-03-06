@@ -1,12 +1,6 @@
 /*
  * App Global CSS
  * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
 /* Core CSS required for Ionic components to work properly */
@@ -18,19 +12,12 @@
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
 
-/* Optional CSS utils that can be commented out */
+/* Optional CSS utils */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
-
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
@@ -40,10 +27,9 @@
    ESTILOS CUSTOMIZADOS PARA MODAIS/ALERTS
    ============================================ */
 
-// Modal de Alert customizado para evitar sobreposição do teclado
 .custom-alert-modal {
   --backdrop-opacity: 0.6;
-  
+
   .alert-wrapper {
     position: fixed !important;
     top: 50% !important;
@@ -53,12 +39,11 @@
     margin-top: 0 !important;
     border-radius: 20px !important;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3) !important;
-    transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+    transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1),
                 transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
                 max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
   }
 
-  // Quando o teclado está aberto (detectado pela mudança de altura da viewport)
   &.keyboard-open .alert-wrapper {
     top: 10% !important;
     transform: translateY(0%) !important;
@@ -66,63 +51,31 @@
     margin-top: 0 !important;
   }
 
-  // Ajustes responsivos para diferentes alturas de tela
   @media (max-height: 700px) {
-    .alert-wrapper {
-      max-height: 70vh !important;
-    }
-
-    &.keyboard-open .alert-wrapper {
-      top: 15% !important;
-      transform: translateY(-5%) !important;
-      max-height: 55vh !important;
-    }
+    .alert-wrapper { max-height: 70vh !important; }
+    &.keyboard-open .alert-wrapper { top: 15% !important; transform: translateY(-5%) !important; max-height: 55vh !important; }
   }
 
   @media (max-height: 600px) {
-    .alert-wrapper {
-      top: 45% !important;
-      max-height: 65vh !important;
-    }
-
-    &.keyboard-open .alert-wrapper {
-      top: 10% !important;
-      transform: translateY(0%) !important;
-      max-height: 50vh !important;
-    }
+    .alert-wrapper { top: 45% !important; max-height: 65vh !important; }
+    &.keyboard-open .alert-wrapper { top: 10% !important; transform: translateY(0%) !important; max-height: 50vh !important; }
   }
 
   @media (max-height: 500px) {
-    .alert-wrapper {
-      top: 40% !important;
-      max-height: 60vh !important;
-    }
-
-    &.keyboard-open .alert-wrapper {
-      top: 8% !important;
-      transform: translateY(0%) !important;
-      max-height: 45vh !important;
-    }
+    .alert-wrapper { top: 40% !important; max-height: 60vh !important; }
+    &.keyboard-open .alert-wrapper { top: 8% !important; transform: translateY(0%) !important; max-height: 45vh !important; }
   }
 
   @media (max-height: 400px) {
-    .alert-wrapper {
-      top: 35% !important;
-      max-height: 55vh !important;
-    }
-
-    &.keyboard-open .alert-wrapper {
-      top: 5% !important;
-      transform: translateY(0%) !important;
-      max-height: 40vh !important;
-    }
+    .alert-wrapper { top: 35% !important; max-height: 55vh !important; }
+    &.keyboard-open .alert-wrapper { top: 5% !important; transform: translateY(0%) !important; max-height: 40vh !important; }
   }
 
   .alert-head {
     padding: 24px 20px 16px !important;
-    background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%) !important;
+    background: linear-gradient(135deg, #4e342e 0%, #6d4c41 100%) !important;
     border-radius: 20px 20px 0 0 !important;
-    
+
     h2 {
       color: white !important;
       font-size: 22px !important;
@@ -142,13 +95,10 @@
 
   .alert-input-group {
     padding: 8px 20px !important;
-    
+
     .alert-input-wrapper {
       margin-bottom: 16px !important;
-      
-      &:last-child {
-        margin-bottom: 8px !important;
-      }
+      &:last-child { margin-bottom: 8px !important; }
     }
   }
 
@@ -160,17 +110,14 @@
     color: #333 !important;
     background: #fafafa !important;
     transition: all 0.3s ease !important;
-    
+
     &:focus {
-      border-color: #43a047 !important;
+      border-color: #6d4c41 !important;
       background: white !important;
-      box-shadow: 0 0 0 3px rgba(67, 160, 71, 0.1) !important;
+      box-shadow: 0 0 0 3px rgba(109, 76, 65, 0.1) !important;
     }
 
-    &::placeholder {
-      color: #999 !important;
-      font-size: 14px !important;
-    }
+    &::placeholder { color: #999 !important; font-size: 14px !important; }
   }
 
   .alert-button-group {
@@ -200,29 +147,19 @@
     &.alert-button-cancel {
       background: #f5f5f5 !important;
       color: #666 !important;
-      
-      &:hover {
-        background: #e0e0e0 !important;
-      }
-
-      &:active {
-        transform: scale(0.98) !important;
-      }
+      &:hover { background: #e0e0e0 !important; }
+      &:active { transform: scale(0.98) !important; }
     }
 
     &.alert-button-confirm {
-      background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%) !important;
+      background: linear-gradient(135deg, #4e342e 0%, #6d4c41 100%) !important;
       color: white !important;
-      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3) !important;
-      
+      box-shadow: 0 4px 12px rgba(78, 52, 46, 0.3) !important;
       &:hover {
-        background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%) !important;
-        box-shadow: 0 6px 16px rgba(46, 125, 50, 0.4) !important;
+        background: linear-gradient(135deg, #3e2723 0%, #4e342e 100%) !important;
+        box-shadow: 0 6px 16px rgba(78, 52, 46, 0.4) !important;
       }
-
-      &:active {
-        transform: scale(0.98) !important;
-      }
+      &:active { transform: scale(0.98) !important; }
     }
 
     .button-inner {
@@ -247,22 +184,14 @@
   }
 }
 
-// Estilo para modais em geral com fundo desfocado
 .modal-backdrop-blur {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
 
-// Animação suave para modais
 @keyframes modalSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-50%) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(-50%) scale(1);
-  }
+  from { opacity: 0; transform: translateY(-50%) scale(0.9); }
+  to { opacity: 1; transform: translateY(-50%) scale(1); }
 }
 
 .custom-alert-modal .alert-wrapper {
@@ -274,14 +203,11 @@
    ============================================ */
 
 .custom-action-sheet {
-  .action-sheet-wrapper {
-    border-radius: 20px 20px 0 0 !important;
-    overflow: hidden !important;
-  }
+  .action-sheet-wrapper { border-radius: 20px 20px 0 0 !important; overflow: hidden !important; }
 
   .action-sheet-title {
     padding: 20px 16px !important;
-    background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%) !important;
+    background: linear-gradient(135deg, #4e342e 0%, #6d4c41 100%) !important;
     color: white !important;
     font-size: 18px !important;
     font-weight: 700 !important;
@@ -289,9 +215,7 @@
     border-bottom: none !important;
   }
 
-  .action-sheet-group {
-    padding: 8px 0 !important;
-  }
+  .action-sheet-group { padding: 8px 0 !important; }
 
   .action-sheet-button {
     height: 56px !important;
@@ -299,115 +223,23 @@
     font-weight: 500 !important;
     transition: all 0.2s ease !important;
 
-    &:hover {
-      background: rgba(67, 160, 71, 0.1) !important;
-    }
+    &:hover { background: rgba(109, 76, 65, 0.1) !important; }
+    &:active { background: rgba(109, 76, 65, 0.2) !important; }
 
-    &:active {
-      background: rgba(67, 160, 71, 0.2) !important;
-    }
-
-    .action-sheet-icon {
-      font-size: 24px !important;
-      margin-right: 16px !important;
-    }
+    .action-sheet-icon { font-size: 24px !important; margin-right: 16px !important; }
 
     &.action-sheet-destructive {
       color: #d32f2f !important;
-
-      .action-sheet-icon {
-        color: #d32f2f !important;
-      }
-
-      &:hover {
-        background: rgba(211, 47, 47, 0.1) !important;
-      }
-
-      &:active {
-        background: rgba(211, 47, 47, 0.2) !important;
-      }
+      .action-sheet-icon { color: #d32f2f !important; }
+      &:hover { background: rgba(211, 47, 47, 0.1) !important; }
+      &:active { background: rgba(211, 47, 47, 0.2) !important; }
     }
 
     &.action-sheet-cancel {
       font-weight: 600 !important;
       border-top: 1px solid #e0e0e0 !important;
       margin-top: 8px !important;
-
-      &:hover {
-        background: #f5f5f5 !important;
-      }
-    }
-  }
-}
-/* ============================================
-   ESTILOS CUSTOMIZADOS PARA MODAL FOTOS FALTANDO
-   ============================================ */
-
-.fotos-faltando-modal {
-  .alert-wrapper {
-    max-width: 500px !important;
-    min-width: 320px !important;
-  }
-
-  .alert-head {
-    h2 {
-      font-size: 20px !important;
-    }
-  }
-
-  .alert-message {
-    padding: 16px 12px !important;
-    max-height: 400px !important;
-    overflow-y: auto !important;
-    text-align: left !important;
-
-    // Scrollbar customizada
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 10px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: #43a047;
-      border-radius: 10px;
-
-      &:hover {
-        background: #2e7d32;
-      }
-    }
-  }
-
-  .alert-button-group {
-    padding: 16px 20px 20px !important;
-    gap: 12px !important;
-  }
-
-  .alert-button {
-    &.alert-button-cancel {
-      flex: 0.8 !important;
-    }
-
-    &.alert-button-confirm {
-      flex: 1.2 !important;
-    }
-  }
-}
-
-// Responsividade para o modal
-@media (max-width: 480px) {
-  .fotos-faltando-modal {
-    .alert-wrapper {
-      min-width: 90vw !important;
-      max-width: 90vw !important;
-    }
-
-    .alert-message {
-      padding: 12px 8px !important;
-      max-height: 50vh !important;
+      &:hover { background: #f5f5f5 !important; }
     }
   }
 }
@@ -417,19 +249,12 @@
    ============================================ */
 
 .fotos-faltando-alert {
-  .alert-wrapper {
-    max-width: 500px !important;
-    min-width: 340px !important;
-  }
+  .alert-wrapper { max-width: 500px !important; min-width: 340px !important; }
 
   .alert-head {
     padding: 24px 20px 16px !important;
-    background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%) !important;
-    
-    h2 {
-      font-size: 19px !important;
-      letter-spacing: -0.2px !important;
-    }
+    background: linear-gradient(135deg, #4e342e 0%, #6d4c41 100%) !important;
+    h2 { font-size: 19px !important; letter-spacing: -0.2px !important; }
   }
 
   .alert-message {
@@ -446,66 +271,31 @@
     border-radius: 12px !important;
     margin: 0 8px !important;
 
-    // Scrollbar customizada
-    &::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 10px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: #43a047;
-      border-radius: 10px;
-
-      &:hover {
-        background: #2e7d32;
-      }
-    }
+    &::-webkit-scrollbar { width: 8px; }
+    &::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+    &::-webkit-scrollbar-thumb { background: #6d4c41; border-radius: 10px; &:hover { background: #4e342e; } }
   }
 
-  .alert-button-group {
-    padding: 16px 20px 20px !important;
-    gap: 12px !important;
-  }
+  .alert-button-group { padding: 16px 20px 20px !important; gap: 12px !important; }
 
   .alert-button {
-    &.alert-button-cancel {
-      flex: 0.8 !important;
-    }
-
+    &.alert-button-cancel { flex: 0.8 !important; }
     &.alert-button-confirm {
       flex: 1.2 !important;
-      background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%) !important;
-      
-      &:hover {
-        background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%) !important;
-      }
+      background: linear-gradient(135deg, #4e342e 0%, #6d4c41 100%) !important;
+      &:hover { background: linear-gradient(135deg, #3e2723 0%, #4e342e 100%) !important; }
     }
   }
 }
 
-// Responsividade para o alert
 @media (max-width: 480px) {
   .fotos-faltando-alert {
-    .alert-wrapper {
-      min-width: 90vw !important;
-      max-width: 90vw !important;
-    }
-
-    .alert-message {
-      padding: 16px !important;
-      font-size: 14px !important;
-      max-height: 50vh !important;
-    }
-
-    .alert-head h2 {
-      font-size: 17px !important;
-    }
+    .alert-wrapper { min-width: 90vw !important; max-width: 90vw !important; }
+    .alert-message { padding: 16px !important; font-size: 14px !important; max-height: 50vh !important; }
+    .alert-head h2 { font-size: 17px !important; }
   }
 }
+
 /* ============================================
    ESTILOS CUSTOMIZADOS PARA MODAL DE VISTORIA
    ============================================ */
@@ -515,7 +305,5 @@
   --height: 100%;
   --border-radius: 0;
 
-  .ion-page {
-    border-radius: 0 !important;
-  }
+  .ion-page { border-radius: 0 !important; }
 }

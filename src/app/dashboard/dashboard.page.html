@@ -10,12 +10,13 @@
     <ion-card class="welcome-card animate-fade-in">
       <ion-card-content>
         <div class="welcome-icon">
-          <ion-icon name="leaf"></ion-icon>
+          <ion-icon name="cafe"></ion-icon>
         </div>
         <h2>Bem-vindo de volta! 👋</h2>
         <p>Aqui está o resumo de hoje</p>
       </ion-card-content>
     </ion-card>
+
     <!-- Ações Rápidas -->
     <ion-card class="activity-card animate-slide-up-delay">
       <ion-card-header>
@@ -25,18 +26,16 @@
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
-
-        <!-- Iniciar Vistoria Rápida -->
         <ion-button expand="block" color="tertiary" (click)="iniciarVistoriaRapida()" class="action-button">
           <ion-icon name="play-circle" slot="start"></ion-icon>
           Iniciar Vistoria
         </ion-button>
       </ion-card-content>
     </ion-card>
-    
+
     <!-- Cards de Estatísticas -->
     <div class="stats-grid animate-slide-up">
-      <!-- Card Fotos Faltando - COM clique -->
+      <!-- Card Fotos Faltando -->
       <ion-card class="stat-card" (click)="mostrarDetalhesFotosFaltando()">
         <ion-card-content>
           <div class="stat-icon-wrapper">
@@ -51,7 +50,7 @@
         </ion-card-content>
       </ion-card>
 
-      <!-- Card Taxa de Conclusão - clique para /campos -->
+      <!-- Card Taxa de Conclusão -->
       <ion-card class="stat-card" (click)="navegarParaCampos()">
         <ion-card-content>
           <div class="stat-icon-wrapper">
@@ -66,7 +65,7 @@
         </ion-card-content>
       </ion-card>
 
-      <!-- Card Talhões Cadastrados - clique para /campos -->
+      <!-- Card Talhões Cadastrados -->
       <ion-card class="stat-card" (click)="navegarParaCampos()">
         <ion-card-content>
           <div class="stat-icon-wrapper">
@@ -82,15 +81,14 @@
       </ion-card>
     </div>
 
-
-    <!-- Informações -->
+    <!-- Dica do Dia -->
     <ion-card class="info-card animate-slide-up-delay2">
       <ion-card-content>
         <div class="info-header">
           <ion-icon name="bulb"></ion-icon>
           <h3>Dica do Dia</h3>
         </div>
-        <p>Organize suas armadilhas por talhão e mantenha o registro fotográfico atualizado para um monitoramento eficiente!</p>
+        <p>Monitore regularmente as armadilhas para detectar precocemente a broca-do-café (<em>Hypothenemus hampei</em>) e outras pragas. O registro fotográfico atualizado garante um controle mais eficiente!</p>
       </ion-card-content>
     </ion-card>
 

@@ -32,7 +32,6 @@
             <div class="vistoria-section">
               <ion-button
                 expand="block"
-                color="success"
                 class="vistoria-button"
                 (click)="iniciarVistoria()">
                 <ion-icon name="camera" slot="start"></ion-icon>
@@ -43,6 +42,7 @@
           }
         </ion-card-content>
       </ion-card>
+
       <!-- Mensagem quando não há armadilhas -->
       @if (campo.armadilhas.length === 0) {
         <div class="empty-state">
@@ -57,6 +57,7 @@
           </ion-button>
         </div>
       }
+
       <!-- Lista de Armadilhas -->
       @if (campo.armadilhas.length > 0) {
         <div class="armadilhas-grid">
@@ -90,9 +91,7 @@
                   </div>
                 </div>
                 @if (armadilha.observacoes) {
-                  <p class="observacoes">
-                    {{ armadilha.observacoes }}
-                  </p>
+                  <p class="observacoes">{{ armadilha.observacoes }}</p>
                 }
                 @if (armadilha.dataFoto) {
                   <div class="data-foto">
@@ -112,6 +111,7 @@
           }
         </div>
       }
+
       <!-- Decoração de fundo -->
       <div class="bg-decoration top-left"></div>
       <div class="bg-decoration bottom-right"></div>

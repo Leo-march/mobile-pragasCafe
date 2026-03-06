@@ -1,12 +1,12 @@
 <ion-content class="login-content" [scrollY]="false" [scrollX]="false">
   <div class="login-container">
-    
+
     <!-- Área de Logo/Header -->
     <div class="logo-area animate-fade-in">
       <div class="logo-circle">
-        <ion-icon name="leaf" class="logo-icon"></ion-icon>
+        <ion-icon name="cafe" class="logo-icon"></ion-icon>
       </div>
-      <h1 class="app-title">Xô Praga!</h1>
+      <h1 class="app-title">Xô Broca!</h1>
       <p class="app-subtitle">Monitoramento de Pragas</p>
     </div>
 
@@ -19,9 +19,9 @@
         <!-- Campo Email -->
         <div class="input-group">
           <ion-icon name="mail-outline" class="input-icon"></ion-icon>
-          <input 
-            type="email" 
-            [(ngModel)]="email" 
+          <input
+            type="email"
+            [(ngModel)]="email"
             name="email"
             placeholder="E-mail"
             class="custom-input"
@@ -31,15 +31,15 @@
         <!-- Campo Senha -->
         <div class="input-group">
           <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
-          <input 
-            [type]="mostrarSenha ? 'text' : 'password'" 
-            [(ngModel)]="senha" 
+          <input
+            [type]="mostrarSenha ? 'text' : 'password'"
+            [(ngModel)]="senha"
             name="senha"
             placeholder="Senha"
             class="custom-input"
             required>
-          <ion-icon 
-            [name]="mostrarSenha ? 'eye-off-outline' : 'eye-outline'" 
+          <ion-icon
+            [name]="mostrarSenha ? 'eye-off-outline' : 'eye-outline'"
             class="toggle-password"
             (click)="toggleMostrarSenha()">
           </ion-icon>
@@ -51,8 +51,8 @@
         </div>
 
         <!-- Botão de Login -->
-        <ion-button 
-          expand="block" 
+        <ion-button
+          expand="block"
           type="submit"
           class="login-button">
           Entrar
@@ -66,8 +66,8 @@
       </div>
 
       <!-- Botão de Cadastro -->
-      <ion-button 
-        expand="block" 
+      <ion-button
+        expand="block"
         fill="outline"
         class="signup-button"
         (click)="irParaCadastro()">

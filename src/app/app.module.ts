@@ -10,7 +10,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { addIcons } from 'ionicons';
 import {
-  leaf, mailOutline, lockClosedOutline, eyeOutline, eyeOffOutline,
+  cafe, mailOutline, lockClosedOutline, eyeOutline, eyeOffOutline,
   arrowForward, personAddOutline, chevronBack, personOutline,
   locationOutline, callOutline, checkmarkCircle, flash, playCircle,
   cameraOutline, trendingUp, mapOutline, checkboxOutline, bulb,
@@ -21,7 +21,7 @@ import {
 } from 'ionicons/icons';
 
 addIcons({
-  'leaf': leaf,
+  'cafe': cafe,
   'mail-outline': mailOutline,
   'lock-closed-outline': lockClosedOutline,
   'eye-outline': eyeOutline,
