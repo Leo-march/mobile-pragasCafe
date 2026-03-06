@@ -42,7 +42,7 @@
     "@angular-eslint/schematics": "^20.0.0",
     "@angular-eslint/template-parser": "^20.0.0",
     "@angular/build": "^21.2.0",
-    "@angular/cli": "21.2.0",
+    "@angular/cli": "21.2.1",
     "@angular/compiler-cli": "^21.2.1",
     "@angular/language-service": "^21.2.1",
     "@capacitor/cli": "8.0.2",
