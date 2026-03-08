@@ -13,6 +13,7 @@ import { DataService, Campo, Armadilha } from '../services/data.service';
 export class CampoDetailPage implements OnInit {
   campo?: Campo;
   campoId?: string;
+  disponiveisIds: Set<string> = new Set();
 
   constructor(
     private route: ActivatedRoute,
@@ -36,35 +37,49 @@ export class CampoDetailPage implements OnInit {
     if (this.campoId) {
       this.campo = this.dataService.getCampo(this.campoId);
       if (!this.campo) { this.navController.back(); }
+      // Atualiza lista de armadilhas disponíveis (filtragem do servidor)
+      try {
+        const disponiveis = await this.dataService.obterArmadilhasDisponiveis(this.campoId);
+        this.disponiveisIds = new Set(disponiveis.map(d => d.id));
+      } catch (e) {
+        this.disponiveisIds = new Set();
+      }
     }
   }
 
-  // ── Regra: 1 foto por talhão por dia ─────────────────────────────────────
+  // ── Regra: 1 foto por talhão por semana ───────────────────────────────────
   talhaoJaFotografadoHoje(): boolean {
     if (!this.campo) return false;
     const hoje = new Date();
+    // semana atual: domingo (0) .. sábado (6)
+    const startOfWeek = new Date(hoje);
+    startOfWeek.setHours(0,0,0,0);
+    startOfWeek.setDate(hoje.getDate() - hoje.getDay());
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+
     return this.campo.armadilhas.some(a => {
       if (!a.dataFoto) return false;
       const d = new Date(a.dataFoto);
-      return (
-        d.getFullYear() === hoje.getFullYear() &&
-        d.getMonth()    === hoje.getMonth()    &&
-        d.getDate()     === hoje.getDate()
-      );
+      d.setHours(0,0,0,0);
+      return d >= startOfWeek && d <= endOfWeek;
     });
   }
 
   pontoFotografadoHoje(): Armadilha | undefined {
     if (!this.campo) return undefined;
     const hoje = new Date();
+    const startOfWeek = new Date(hoje);
+    startOfWeek.setHours(0,0,0,0);
+    startOfWeek.setDate(hoje.getDate() - hoje.getDay());
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+
     return this.campo.armadilhas.find(a => {
       if (!a.dataFoto) return false;
       const d = new Date(a.dataFoto);
-      return (
-        d.getFullYear() === hoje.getFullYear() &&
-        d.getMonth()    === hoje.getMonth()    &&
-        d.getDate()     === hoje.getDate()
-      );
+      d.setHours(0,0,0,0);
+      return d >= startOfWeek && d <= endOfWeek;
     });
   }
   // ─────────────────────────────────────────────────────────────────────────
@@ -93,8 +108,13 @@ export class CampoDetailPage implements OnInit {
         }
       ]
     });
-    await alert.present();
-    setTimeout(() => { const i = document.querySelector('ion-alert input') as HTMLInputElement; if (i) i.focus(); }, 300);
+      const aviso = await this.alertController.create({
+        header: 'Criação desativada',
+        message: 'A criação de pontos de foto foi desativada. Contate o administrador para adicionar pontos.',
+        cssClass: 'custom-alert-modal',
+        buttons: [ { text: 'OK', cssClass: 'alert-button-confirm' } ]
+      });
+      await aviso.present();
   }
 
   async editarPontoDeFoto(ponto: Armadilha) {
@@ -155,8 +175,8 @@ export class CampoDetailPage implements OnInit {
     if (this.talhaoJaFotografadoHoje()) {
       const jaFotografado = this.pontoFotografadoHoje();
       const alert = await this.alertController.create({
-        header: '📸 Limite Diário Atingido',
-        message: `Este talhão já recebeu uma foto hoje (ponto "${jaFotografado?.nome ?? ''}"). Apenas 1 foto por talhão é permitida por dia.`,
+        header: '📸 Limite Semanal Atingido',
+        message: `Este talhão já recebeu uma foto nesta semana (ponto "${jaFotografado?.nome ?? ''}"). Apenas 1 foto por talhão é permitida por semana.`,
         cssClass: 'custom-alert-modal',
         buttons: [{ text: 'Entendi', cssClass: 'alert-button-confirm' }]
       });
@@ -164,6 +184,18 @@ export class CampoDetailPage implements OnInit {
       return;
     }
     // ─────────────────────────────────────────────────────────────────────
+
+    // não permite fotografar ponto que não esteja disponível no rodízio
+    if (this.campo && this.campo.apiId && !this.disponiveisIds.has(ponto.id)) {
+      const alert = await this.alertController.create({
+        header: 'Ponto indisponível',
+        message: 'Este ponto já foi usado no ciclo atual. Escolha outro ponto.',
+        cssClass: 'custom-alert-modal',
+        buttons: [{ text: 'OK', cssClass: 'alert-button-confirm' }]
+      });
+      await alert.present();
+      return;
+    }
 
     try {
       const image = await Camera.getPhoto({

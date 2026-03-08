@@ -55,7 +55,7 @@ export interface CriarTalhaoDTO {
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:3333'; // URL da sua API
+  private baseUrl = 'https://backbanco-dvedfbbfgeedfmfm.chilecentral-01.azurewebsites.net'; // URL da sua API
 
   constructor(private http: HttpClient) { }
 
@@ -104,4 +104,14 @@ export class ApiService {
   uploadArmadilhaFoto(talhaoId: number, armadilhaId: number, dataUrl: string): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/talhoes/${talhaoId}/armadilhas/${armadilhaId}/foto`, { dataUrl }, this.getAuthHeaders());
   }
+
+  // Lista armadilhas disponíveis para registro por rodízio (não usadas no ciclo atual)
+  listarArmadilhasDisponiveis(talhaoId: number): Observable<{ disponiveis: ArmadilhaAPI[]; cicloAtual: number }> {
+    return this.http.get<{ disponiveis: ArmadilhaAPI[]; cicloAtual: number }>(`${this.baseUrl}/talhoes/${talhaoId}/armadilhas-disponiveis`, this.getAuthHeaders());
+  }
+
+  // mobile-pragasCafe/src/app/services/api.service.ts
+registrarFotoRodizio(talhaoId: number, dataUrl: string) {
+  return this.http.post<any>(`${this.baseUrl}/talhoes/${talhaoId}/registrar-foto`, { dataUrl }, this.getAuthHeaders());
+}
 }

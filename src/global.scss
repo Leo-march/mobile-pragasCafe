@@ -307,3 +307,36 @@
 
   .ion-page { border-radius: 0 !important; }
 }
+
+/* Pequenos ajustes de UI/UX: maior espaçamento, controles mais táteis */
+.stat-card {
+  border-radius: 14px !important;
+  padding: 14px !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06) !important;
+}
+
+.stat-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 6px 10px !important;
+  border-radius: 999px !important;
+  background: rgba(0,0,0,0.03) !important;
+}
+
+.stat-lbl { font-weight: 600 !important; color: #444 !important; }
+
+.add-btn {
+  background: transparent !important;
+  border: 1px solid rgba(0,0,0,0.06) !important;
+  padding: 8px !important;
+  border-radius: 10px !important;
+}
+
+.acao-btn { min-width: 44px !important; height: 44px !important; border-radius: 10px !important; }
+
+ion-button.add-ponto-button {
+  --border-radius: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+}

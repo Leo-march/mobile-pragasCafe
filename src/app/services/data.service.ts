@@ -77,41 +77,105 @@ export class DataService {
 
       // Mescla dados da API com dados locais (usando os talhões detalhados quando disponíveis)
       talhoesDetalhados.forEach(talhaoAPI => {
-        const campoLocal = this.campos.find(c => c.apiId === talhaoAPI.id);
-        
+        const apiId = (talhaoAPI as any).id;
+        let campoLocal = this.campos.find(c => c.apiId === apiId);
+
         if (campoLocal) {
           // Atualiza campo existente
           campoLocal.nome = (talhaoAPI as any).nome;
           campoLocal.area = (talhaoAPI as any).area;
           campoLocal.status = (talhaoAPI as any).status;
-          // Sincroniza armadilhas retornadas pela API (substitui localmente quando presentes)
+
+          // Mesclar armadilhas: não duplicar — priorizar armadilhas locais
           if (Array.isArray((talhaoAPI as any).armadilhas)) {
-            campoLocal.armadilhas = (talhaoAPI as any).armadilhas.map((a: any) => ({
-              id: String(a.id),
-              nome: a.nome,
-              foto: a.foto || undefined,
-              dataFoto: a.dataFoto ? new Date(a.dataFoto) : undefined,
-              observacoes: a.observacoes || undefined
-            }));
+            const apiArmadilhas = (talhaoAPI as any).armadilhas as any[];
+            const merged: Armadilha[] = [];
+
+            const locaisByApiId = new Map<number, Armadilha>();
+            const locaisByName = new Map<string, Armadilha>();
+            campoLocal.armadilhas.forEach(a => {
+              if ((a as any).apiId) locaisByApiId.set(Number((a as any).apiId), a);
+              locaisByName.set((a.nome || '').trim().toLowerCase(), a);
+            });
+
+            apiArmadilhas.forEach(a => {
+              const aApiId = Number(a.id);
+              const aName = (a.nome || '').trim().toLowerCase();
+              let existente = locaisByApiId.get(aApiId) || locaisByName.get(aName);
+              if (existente) {
+                existente.apiId = aApiId;
+                if (a.foto) existente.foto = a.foto;
+                if (a.dataFoto) existente.dataFoto = new Date(a.dataFoto);
+                if (a.observacoes) existente.observacoes = a.observacoes;
+                merged.push(existente);
+              } else {
+                merged.push({
+                  id: String(a.id),
+                  nome: a.nome,
+                  foto: a.foto || undefined,
+                  dataFoto: a.dataFoto ? new Date(a.dataFoto) : undefined,
+                  observacoes: a.observacoes || undefined,
+                  apiId: aApiId
+                });
+              }
+            });
+
+            // incluir locais que não existam no API
+            campoLocal.armadilhas.forEach(local => {
+              const nameKey = (local.nome || '').trim().toLowerCase();
+              const existsInMerged = merged.some(m => ((m as any).apiId && (local as any).apiId && Number((m as any).apiId) === Number((local as any).apiId)) || ((m.nome || '').trim().toLowerCase() === nameKey));
+              if (!existsInMerged) merged.push(local);
+            });
+
+            campoLocal.armadilhas = merged;
           }
         } else {
-          // Cria novo campo a partir da API
-          const novoCampo: Campo = {
-            id: this.gerarId(),
-            apiId: (talhaoAPI as any).id,
-            nome: (talhaoAPI as any).nome,
-            area: (talhaoAPI as any).area,
-            status: (talhaoAPI as any).status,
-            dataCriacao: new Date(),
-            armadilhas: (Array.isArray((talhaoAPI as any).armadilhas) ? (talhaoAPI as any).armadilhas : []).map((a: any) => ({
-              id: String(a.id),
-              nome: a.nome,
-              foto: a.foto || undefined,
-              dataFoto: a.dataFoto ? new Date(a.dataFoto) : undefined,
-              observacoes: a.observacoes || undefined
-            }))
-          };
-          this.campos.push(novoCampo);
+          // Tentar casar por nome com talhão local não sincronizado (evita duplicação)
+          const nomeApi = (talhaoAPI as any).nome || '';
+          const candidatoLocal = this.campos.find(c => !c.apiId && c.nome && c.nome.trim().toLowerCase() === nomeApi.trim().toLowerCase());
+          if (candidatoLocal) {
+            candidatoLocal.apiId = apiId;
+            candidatoLocal.area = (talhaoAPI as any).area;
+            candidatoLocal.status = (talhaoAPI as any).status;
+
+            if (Array.isArray((talhaoAPI as any).armadilhas)) {
+              const apiArmadilhas = (talhaoAPI as any).armadilhas as any[];
+              apiArmadilhas.forEach(a => {
+                const aApiId = Number(a.id);
+                const aName = (a.nome || '').trim().toLowerCase();
+                const existe = candidatoLocal.armadilhas.some(local => (local.apiId && Number(local.apiId) === aApiId) || ((local.nome || '').trim().toLowerCase() === aName));
+                if (!existe) {
+                  candidatoLocal.armadilhas.push({
+                    id: String(a.id),
+                    nome: a.nome,
+                    foto: a.foto || undefined,
+                    dataFoto: a.dataFoto ? new Date(a.dataFoto) : undefined,
+                    observacoes: a.observacoes || undefined,
+                    apiId: aApiId
+                  });
+                }
+              });
+            }
+          } else {
+            // Cria novo campo a partir da API
+            const novoCampo: Campo = {
+              id: this.gerarId(),
+              apiId: apiId,
+              nome: (talhaoAPI as any).nome,
+              area: (talhaoAPI as any).area,
+              status: (talhaoAPI as any).status,
+              dataCriacao: new Date(),
+              armadilhas: (Array.isArray((talhaoAPI as any).armadilhas) ? (talhaoAPI as any).armadilhas : []).map((a: any) => ({
+                id: String(a.id),
+                nome: a.nome,
+                foto: a.foto || undefined,
+                dataFoto: a.dataFoto ? new Date(a.dataFoto) : undefined,
+                observacoes: a.observacoes || undefined,
+                apiId: Number(a.id)
+              }))
+            };
+            this.campos.push(novoCampo);
+          }
         }
       });
       
@@ -259,9 +323,21 @@ export class DataService {
   adicionarArmadilha(campoId: string, nome: string, observacoes?: string): Armadilha | null {
     const campo = this.getCampo(campoId);
     if (campo) {
+      // Evita criar armadilha duplicada por nome (case-insensitive, trim)
+      const nomeNorm = nome.trim().toLowerCase();
+      const existente = campo.armadilhas.find(a => (a.nome || '').trim().toLowerCase() === nomeNorm);
+      if (existente) {
+        // Atualiza observações caso necessário e retorna existente
+        if (observacoes && (!existente.observacoes || existente.observacoes !== observacoes)) {
+          existente.observacoes = observacoes;
+          this.salvarDados();
+        }
+        return existente;
+      }
+
       const novaArmadilha: Armadilha = {
         id: this.gerarId(),
-        nome,
+        nome: nome.trim(),
         observacoes
       };
       campo.armadilhas.push(novaArmadilha);
@@ -467,6 +543,31 @@ export class DataService {
   // Forçar sincronização manual
   async forcarSincronizacao(): Promise<void> {
     await this.sincronizarComAPI();
+  }
+
+  // Retorna as armadilhas locais disponíveis (filtradas usando API de disponíveis)
+  async obterArmadilhasDisponiveis(campoId: string): Promise<Armadilha[]> {
+    const campo = this.getCampo(campoId);
+    if (!campo) return [];
+
+    // se não há apiId, não há dados remotos — retorna todas as armadilhas locais
+    if (!campo.apiId) return campo.armadilhas;
+
+    try {
+      const resp: any = await firstValueFrom(this.apiService.listarArmadilhasDisponiveis(campo.apiId));
+      const disponiveisApi: number[] = (resp && resp.disponiveis) ? resp.disponiveis.map((a: any) => a.id) : [];
+      // mapear armadilhas locais filtrando por apiId
+      const disponiveisLocais = campo.armadilhas.filter(a => {
+        const apiId = (a as any).apiId ? Number((a as any).apiId) : null;
+        // se armadilha local não tem apiId, mantemos (não foi criada remotamente ainda)
+        if (!apiId) return true;
+        return disponiveisApi.includes(apiId);
+      });
+      return disponiveisLocais;
+    } catch (err) {
+      console.warn('Erro ao buscar armadilhas disponíveis, retornando todas locais:', err);
+      return campo.armadilhas;
+    }
   }
 
   // Gerar ID único

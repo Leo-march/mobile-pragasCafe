@@ -33,7 +33,7 @@
           </div>
           <div class="stat-pill" [class.fotografado]="talhaoJaFotografadoHoje()">
             <ion-icon [name]="talhaoJaFotografadoHoje() ? 'checkmark-circle' : 'ellipse-outline'"></ion-icon>
-            <span class="stat-lbl">{{ talhaoJaFotografadoHoje() ? 'Foto hoje' : 'Sem foto hoje' }}</span>
+            <span class="stat-lbl">{{ talhaoJaFotografadoHoje() ? 'Foto da semana' : 'Sem foto nesta semana' }}</span>
           </div>
         </div>
       </div>
@@ -43,8 +43,8 @@
         <div class="aviso-diario">
           <ion-icon name="information-circle"></ion-icon>
           <div>
-            <strong>Foto do dia registrada</strong>
-            <p>Este talhão já foi fotografado hoje. O próximo registro poderá ser feito amanhã.</p>
+            <strong>Foto da semana registrada</strong>
+            <p>Este talhão já foi fotografado esta semana. O próximo registro poderá ser feito na próxima semana.</p>
           </div>
         </div>
       }
@@ -57,10 +57,7 @@
           </div>
           <h3>Nenhum ponto de foto cadastrado</h3>
           <p>Adicione pontos para iniciar o monitoramento deste talhão</p>
-          <ion-button expand="block" (click)="novoPontoDeFoto()" class="add-ponto-button">
-            <ion-icon name="add-circle" slot="start"></ion-icon>
-            Adicionar Ponto de Foto
-          </ion-button>
+          <!-- Criação de pontos desativada (controle removido) -->
         </div>
       }
 
@@ -71,14 +68,14 @@
             <ion-icon name="flag-outline"></ion-icon>
             Pontos de Foto
           </h3>
-          <button class="add-btn" (click)="novoPontoDeFoto()">
-            <ion-icon name="add-circle"></ion-icon>
-          </button>
+          <!-- Botão de adicionar ponto removido -->
         </div>
 
         <div class="pontos-list">
           @for (ponto of campo.armadilhas; track ponto; let i = $index) {
-            <div class="ponto-item" [class.fotografado-hoje]="pontoFotografadoHoje()?.id === ponto.id">
+              <div class="ponto-item"
+                [class.fotografado-hoje]="pontoFotografadoHoje()?.id === ponto.id"
+                [class.indisponivel]="campo.apiId && disponiveisIds.size > 0 && !disponiveisIds.has(ponto.id)">
 
               <!-- Número do ponto -->
               <div class="ponto-numero">{{ i + 1 }}</div>
@@ -93,11 +90,21 @@
                       <ion-icon name="checkmark-circle"></ion-icon>
                     </div>
                   }
+                  @if (campo.apiId && disponiveisIds.size > 0 && !disponiveisIds.has(ponto.id)) {
+                    <div class="thumb-badge-indisponivel">
+                      Indisponível
+                    </div>
+                  }
                 }
                 @if (!ponto.foto) {
                   <div class="thumb-placeholder">
                     <ion-icon name="camera-outline"></ion-icon>
                   </div>
+                  @if (campo.apiId && disponiveisIds.size > 0 && !disponiveisIds.has(ponto.id)) {
+                    <div class="thumb-badge-indisponivel">
+                      Indisponível
+                    </div>
+                  }
                 }
               </div>
 
@@ -121,9 +128,9 @@
               <!-- Ações -->
               <div class="ponto-acoes">
                 <button class="acao-btn foto"
-                  [disabled]="talhaoJaFotografadoHoje() && pontoFotografadoHoje()?.id !== ponto.id"
+                  [disabled]="(talhaoJaFotografadoHoje() && pontoFotografadoHoje()?.id !== ponto.id) || (campo.apiId && disponiveisIds.size > 0 && !disponiveisIds.has(ponto.id))"
                   (click)="tirarFoto(ponto)"
-                  [title]="talhaoJaFotografadoHoje() ? 'Limite diário atingido' : 'Tirar foto'">
+                  [title]="(talhaoJaFotografadoHoje() ? 'Limite semanal atingido' : (campo.apiId && disponiveisIds.size > 0 && !disponiveisIds.has(ponto.id) ? 'Ponto já usado neste ciclo' : 'Tirar foto'))">
                   <ion-icon [name]="ponto.foto ? 'camera' : 'camera-outline'"></ion-icon>
                 </button>
                 <button class="acao-btn editar" (click)="editarPontoDeFoto(ponto)">

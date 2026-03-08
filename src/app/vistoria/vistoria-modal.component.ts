@@ -35,9 +35,18 @@ export class VistoriaModalComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.armadilhas = [...this.campo.armadilhas];
-    if (this.armadilhas.length > 0) {
-      this.armadilhaAtual = this.armadilhas[0];
+    this.loadArmadilhasDisponiveis();
+  }
+
+  private async loadArmadilhasDisponiveis() {
+    try {
+      const disponiveis = await this.dataService.obterArmadilhasDisponiveis(this.campo.id);
+      this.armadilhas = [...disponiveis];
+      if (this.armadilhas.length > 0) this.armadilhaAtual = this.armadilhas[0];
+    } catch (err) {
+      console.warn('Erro carregando armadilhas disponíveis, usando todas locais', err);
+      this.armadilhas = [...this.campo.armadilhas];
+      if (this.armadilhas.length > 0) this.armadilhaAtual = this.armadilhas[0];
     }
   }
 

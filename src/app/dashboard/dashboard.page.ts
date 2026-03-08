@@ -129,15 +129,15 @@ export class DashboardPage implements OnInit {
       return;
     }
 
-    let mensagem = `Total: ${this.fotosFaltando} ${this.fotosFaltando === 1 ? 'foto faltando' : 'fotos faltando'}\n\n`;
+    let mensagem = `Total: ${this.fotosFaltando} ${this.fotosFaltando === 1 ? 'talhão sem foto' : 'talhões sem foto'}\n\n`;
     
     detalhes.forEach((item) => {
       const texto = item.faltando === 1 ? 'foto' : 'fotos';
-      mensagem += `📍 ${item.nome}\n   ${item.faltando} ${texto} faltando\n\n`;
+      mensagem += `📍 ${item.nome}\n   ${item.faltando} ${texto} sem foto\n\n`;
     });
 
     const alert = await this.alertController.create({
-      header: '📸 Fotos Faltando por Talhão',
+      header: '📸 Talhões sem foto',
       message: mensagem,
       cssClass: 'custom-alert-modal fotos-faltando-alert',
       buttons: [
@@ -160,57 +160,12 @@ export class DashboardPage implements OnInit {
   }
 
   async adicionarNovoTalhao() {
-    const alert = await this.alertController.create({
-      header: 'Novo Talhão',
+    const aviso = await this.alertController.create({
+      header: 'Criação desativada',
+      message: 'A criação de talhões foi desativada. Contate o administrador para adicionar novos talhões.',
       cssClass: 'custom-alert-modal',
-      inputs: [
-        {
-          name: 'nome',
-          type: 'text',
-          placeholder: 'Nome do talhão',
-          attributes: {
-            required: true,
-            maxlength: 50
-          }
-        },
-        {
-          name: 'localizacao',
-          type: 'text',
-          placeholder: 'Localização (opcional)',
-          attributes: {
-            maxlength: 100
-          }
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'alert-button-cancel'
-        },
-        {
-          text: 'Criar',
-          cssClass: 'alert-button-confirm',
-          handler: (data) => {
-            if (data.nome && data.nome.trim()) {
-              this.dataService.criarCampo(data.nome.trim(), data.localizacao?.trim());
-              this.carregarEstatisticas();
-              this.router.navigate(['/campos']);
-              return true;
-            }
-            return false;
-          }
-        }
-      ]
+      buttons: [ { text: 'OK', cssClass: 'alert-button-confirm' } ]
     });
-
-    await alert.present();
-    
-    setTimeout(() => {
-      const firstInput = document.querySelector('ion-alert input') as HTMLInputElement;
-      if (firstInput) {
-        firstInput.focus();
-      }
-    }, 300);
+    await aviso.present();
   }
 }

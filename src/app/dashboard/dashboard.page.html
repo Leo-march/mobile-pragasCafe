@@ -14,7 +14,7 @@
           <ion-icon name="cafe"></ion-icon>
         </div>
         <h2>Bem-vindo de volta! 👋</h2>
-        <p>Aqui está o resumo de hoje</p>
+        <p>Aqui está o resumo da semana</p>
       </ion-card-content>
     </ion-card>
 
@@ -28,7 +28,7 @@
             <ion-icon name="camera-outline" class="stat-icon"></ion-icon>
           </div>
           <h3>{{ fotosFaltando }}</h3>
-          <p>Fotos Faltando</p>
+          <p>Talhões sem foto</p>
           <span class="trend" [class.negative]="fotosFaltando > 0" [class.positive]="fotosFaltando === 0">
             <ion-icon [name]="fotosFaltando === 0 ? 'checkmark-circle' : 'alert-circle'"></ion-icon>
             {{ fotosFaltando === 0 ? 'Completo!' : 'Pendente' }}
@@ -67,30 +67,15 @@
 
     </div>
 
-    <!-- Acesso rápido aos talhões -->
-    <ion-card class="acao-card animate-slide-up-delay" (click)="navegarParaCampos()">
-      <ion-card-content>
-        <div class="acao-inner">
-          <div class="acao-icon">
-            <ion-icon name="map-outline"></ion-icon>
-          </div>
-          <div class="acao-texto">
-            <strong>Ver Talhões</strong>
-            <span>Gerencie seus talhões e pontos de foto</span>
-          </div>
-          <ion-icon name="chevron-forward-outline" class="acao-seta"></ion-icon>
-        </div>
-      </ion-card-content>
-    </ion-card>
 
-    <!-- Dica do Dia -->
+    <!-- Dica da Semana -->
     <ion-card class="info-card animate-slide-up-delay2">
       <ion-card-content>
         <div class="info-header">
           <ion-icon name="bulb"></ion-icon>
-          <h3>Dica do Dia</h3>
+          <h3>Dica da Semana</h3>
         </div>
-        <p>Monitore regularmente os pontos de foto para detectar precocemente a broca-do-café (<em>Hypothenemus hampei</em>) e outras pragas. O registro fotográfico diário garante um controle mais eficiente!</p>
+        <p>Monitore regularmente os pontos de foto para detectar precocemente a broca-do-café (<em>Hypothenemus hampei</em>) e outras pragas. O registro fotográfico semanal garante um controle mais eficiente!</p>
       </ion-card-content>
     </ion-card>
 
@@ -98,4 +83,3 @@
     <div class="bg-decoration bottom-right"></div>
     <div class="bg-decoration middle"></div>
   </div>
-</ion-content>

@@ -32,58 +32,13 @@ export class CamposPage implements OnInit {
   }
 
   async novoCampo() {
-    const alert = await this.alertController.create({
-      header: 'Novo Talhão',
+    const aviso = await this.alertController.create({
+      header: 'Criação desativada',
+      message: 'A criação de talhões foi desativada. Contate o administrador para adicionar novos talhões.',
       cssClass: 'custom-alert-modal',
-      inputs: [
-        {
-          name: 'nome',
-          type: 'text',
-          placeholder: 'Nome do talhão',
-          attributes: {
-            required: true,
-            maxlength: 50
-          }
-        },
-        {
-          name: 'localizacao',
-          type: 'text',
-          placeholder: 'Localização (opcional)',
-          attributes: {
-            maxlength: 100
-          }
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'alert-button-cancel'
-        },
-        {
-          text: 'Criar',
-          cssClass: 'alert-button-confirm',
-          handler: (data) => {
-            if (data.nome && data.nome.trim()) {
-              this.dataService.criarCampo(data.nome.trim(), data.localizacao?.trim());
-              this.carregarCampos();
-              return true;
-            }
-            return false;
-          }
-        }
-      ]
+      buttons: [ { text: 'OK', cssClass: 'alert-button-confirm' } ]
     });
-
-    await alert.present();
-    
-    // Força o foco no primeiro input após um pequeno delay
-    setTimeout(() => {
-      const firstInput = document.querySelector('ion-alert input') as HTMLInputElement;
-      if (firstInput) {
-        firstInput.focus();
-      }
-    }, 300);
+    await aviso.present();
   }
 
   async editarCampo(campo: Campo) {

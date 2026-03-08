@@ -1,4 +1,4 @@
 export const environment = {
-  production: true
-  ,apiUrl: 'https://example.com' // coloque a URL da API em produção
+  production: true,
+  apiUrl: 'https://backbanco-dvedfbbfgeedfmfm.chilecentral-01.azurewebsites.net'
 };
