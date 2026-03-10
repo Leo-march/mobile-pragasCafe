@@ -28,7 +28,7 @@
             <ion-icon name="camera-outline" class="stat-icon"></ion-icon>
           </div>
           <h3>{{ fotosFaltando }}</h3>
-          <p>Talhões sem foto</p>
+          <p>Ponto de fotos totais</p>
           <span class="trend" [class.negative]="fotosFaltando > 0" [class.positive]="fotosFaltando === 0">
             <ion-icon [name]="fotosFaltando === 0 ? 'checkmark-circle' : 'alert-circle'"></ion-icon>
             {{ fotosFaltando === 0 ? 'Completo!' : 'Pendente' }}
