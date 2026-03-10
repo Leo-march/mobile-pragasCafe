@@ -44,6 +44,12 @@ export class TokenService {
     }
   }
 
+    async clearAll(): Promise<void> {
+    await this.removeToken();
+    localStorage.removeItem('campos_data');
+    localStorage.removeItem('pending_uploads');
+  }
+
   async getToken(): Promise<string | null> {
     // Try secure plugin first
     try {

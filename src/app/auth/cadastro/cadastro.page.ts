@@ -83,6 +83,7 @@ export class CadastroPage implements OnInit {
       const loginUrl = `${environment.apiUrl}/usuarios/login`;
       const loginResp: any = await this.http.post(loginUrl, { email: this.email, senha: this.senha }).toPromise();
       if (loginResp && loginResp.token) {
+        await this.tokenService.clearAll();
         await this.tokenService.setToken(loginResp.token);
       }
 
